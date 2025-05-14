@@ -2,11 +2,10 @@ package QuanLyNhaThuoc.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
-public class ManagerHomeUI extends JFrame {
-    public ManagerHomeUI(String tenDangNhap, String hoTen, String ngaySinh, String sdt, String email, String role) {
-        setTitle("Quản lý nhà thuốc - Hệ thống quản lý nhà thuốc");
+public class MedicineManageUI extends JFrame {
+    public MedicineManageUI(String tenDangNhap, String hoTen, String ngaySinh, String sdt, String email, String role) {
+        setTitle("Quản lý thuốc - Hệ thống quản lý nhà thuốc");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1400, 800);
         setLocationRelativeTo(null);
@@ -17,9 +16,9 @@ public class ManagerHomeUI extends JFrame {
         // SIDEBAR - Điều chỉnh kích thước và căn đối
         JPanel sidebar = new JPanel();
         sidebar.setBackground(new Color(120, 156, 230));
-        sidebar.setPreferredSize(new Dimension(300, 800));
+        sidebar.setPreferredSize(new Dimension(300, 800)); // Thu gọn chiều rộng sidebar
         sidebar.setLayout(new BoxLayout(sidebar, BoxLayout.Y_AXIS));
-
+        
         // Điều chỉnh khoảng cách trên cùng
         sidebar.add(Box.createVerticalStrut(40));
 
@@ -27,7 +26,7 @@ public class ManagerHomeUI extends JFrame {
         AvatarCircle avatar = new AvatarCircle(hoTen.substring(0, 1).toUpperCase(), new Color(200, 220, 255), 120);
         avatar.setAlignmentX(Component.CENTER_ALIGNMENT);
         sidebar.add(avatar);
-
+        
         sidebar.add(Box.createVerticalStrut(15));
 
         // Vai trò - Điều chỉnh font
@@ -47,37 +46,37 @@ public class ManagerHomeUI extends JFrame {
             BorderFactory.createLineBorder(new Color(100, 140, 220), 2, true),
             BorderFactory.createEmptyBorder(10, 15, 15, 15)));
         infoPanel.setMaximumSize(new Dimension(270, 250));
-
+        
         // Tiêu đề info panel
         JLabel infoTitle = new JLabel("Thông tin cá nhân");
         infoTitle.setFont(new Font("Arial", Font.BOLD, 22));
         infoTitle.setForeground(new Color(40, 60, 100));
         infoTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         infoPanel.add(infoTitle);
-
+        
         infoPanel.add(Box.createVerticalStrut(15));
-
+        
         // Thông tin người dùng - Style đồng nhất
         JPanel userDataPanel = new JPanel();
         userDataPanel.setLayout(new GridLayout(4, 1, 0, 8));
         userDataPanel.setOpaque(false);
-
+        
         JLabel lblHoTen = new JLabel("Họ tên: " + hoTen);
         lblHoTen.setFont(new Font("Arial", Font.PLAIN, 18));
         userDataPanel.add(lblHoTen);
-
+        
         JLabel lblNgaySinh = new JLabel("Ngày sinh: " + ngaySinh);
         lblNgaySinh.setFont(new Font("Arial", Font.PLAIN, 18));
         userDataPanel.add(lblNgaySinh);
-
+        
         JLabel lblSdt = new JLabel("SĐT: " + sdt);
         lblSdt.setFont(new Font("Arial", Font.PLAIN, 18));
         userDataPanel.add(lblSdt);
-
+        
         JLabel lblEmail = new JLabel("Email: " + email);
         lblEmail.setFont(new Font("Arial", Font.PLAIN, 18));
         userDataPanel.add(lblEmail);
-
+        
         infoPanel.add(userDataPanel);
         infoPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         sidebar.add(infoPanel);
@@ -110,26 +109,32 @@ public class ManagerHomeUI extends JFrame {
         titlePanel.setBackground(new Color(54, 104, 181));
         titlePanel.setBorder(BorderFactory.createEmptyBorder(15, 25, 15, 10));
         titlePanel.setPreferredSize(new Dimension(0, 90));
-
-        JLabel lblTitle = new JLabel("Quản lý hệ thống");
+        
+        JLabel lblTitle = new JLabel("Quản lý thuốc");
         lblTitle.setFont(new Font("Arial", Font.BOLD, 42));
         lblTitle.setForeground(Color.WHITE);
         titlePanel.add(lblTitle, BorderLayout.WEST);
-
+        
         rightPanel.add(titlePanel, BorderLayout.NORTH);
 
         // Panel chứa các nút chức năng - Thiết kế đẹp hơn
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 2, 20, 20));
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridBagLayout());
         buttonPanel.setBackground(Color.WHITE);
+        
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 10, 0);
 
         // Các nút chức năng với style nhất quán
         String[] btnTexts = {
-            "Quản Lý Người Dùng",
-            "Quản Lý Thuốc",
-            "Quản Lý Kho",
-            "Báo Cáo & Thống Kê"
+            "Chỉnh sửa thông tin Thuốc",
+            "Nhập thông tin Thuốc",
+            "Xóa Thuốc",
+            "Tìm kiếm và xem Thuốc"
         };
-
+        
         for (String text : btnTexts) {
             JButton btn = new JButton(text);
             btn.setFont(new Font("Arial", Font.BOLD, 24));
@@ -139,8 +144,8 @@ public class ManagerHomeUI extends JFrame {
             btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
             btn.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(120, 156, 230), 2, true),
-                BorderFactory.createEmptyBorder(30, 20, 30, 20)));
-
+                BorderFactory.createEmptyBorder(15, 20, 15, 20)));
+            
             // Hiệu ứng hover đơn giản
             btn.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -150,17 +155,14 @@ public class ManagerHomeUI extends JFrame {
                     btn.setBackground(new Color(230, 235, 245));
                 }
             });
-
-            buttonPanel.add(btn);
+            
+            buttonPanel.add(btn, gbc);
         }
 
         // Thêm panel nút vào container chính với căn giữa
         JPanel centeringPanel = new JPanel(new GridBagLayout());
         centeringPanel.setBackground(Color.WHITE);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        centeringPanel.add(buttonPanel, gbc);
+        centeringPanel.add(buttonPanel);
         rightPanel.add(centeringPanel, BorderLayout.CENTER);
 
         // Thêm vào panel chính
@@ -175,7 +177,7 @@ public class ManagerHomeUI extends JFrame {
         private String letter;
         private Color bgColor;
         private int size;
-
+        
         public AvatarCircle(String letter, Color bgColor, int size) {
             this.letter = letter;
             this.bgColor = bgColor;
@@ -184,22 +186,22 @@ public class ManagerHomeUI extends JFrame {
             setMaximumSize(new Dimension(size, size));
             setOpaque(false);
         }
-
+        
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g;
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
+            
             // Vẽ hình tròn avatar
             g2.setColor(bgColor);
             g2.fillOval(0, 0, size, size);
-
+            
             // Vẽ viền
             g2.setColor(Color.WHITE);
             g2.setStroke(new BasicStroke(3));
             g2.drawOval(1, 1, size-3, size-3);
-
+            
             // Vẽ chữ cái
             if (!letter.isEmpty()) {
                 g2.setColor(Color.WHITE);
@@ -211,17 +213,18 @@ public class ManagerHomeUI extends JFrame {
             }
         }
     }
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new ManagerHomeUI(
+            // Tạo dữ liệu mẫu để kiểm tra
+            new MedicineManageUI(
                 "admin123", 
                 "Nguyễn Văn A", 
-                "10/01/1990", 
-                "0123456789", 
+                "01/01/1990", 
+                "0912345678", 
                 "nguyenvana@example.com", 
                 "quanly"
             ).setVisible(true);
         });
     }
+
 }
